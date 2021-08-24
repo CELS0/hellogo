@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "25432:5432"
+      - "5432:5432"
     environment:
       POSTGRES_DB: books
       POSTGRES_USER: admin
