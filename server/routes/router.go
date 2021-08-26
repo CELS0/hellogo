@@ -2,13 +2,23 @@ package routes
 
 import (
 	"github.com/CELS0/hellogo/controllers"
+	"github.com/CELS0/hellogo/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
 func ConfigRoutes(router *gin.Engine) *gin.Engine {
 	main := router.Group("api/v1")
 	{
-		books := main.Group("books")
+		login := main.Group("login")
+		{
+			login.POST("/", controllers.Login)
+		}
+		user := main.Group("user")
+		{
+			user.POST("/", controllers.CreateUser)
+		}
+
+		books := main.Group("books", middlewares.Auth())
 		{
 			books.GET("/:id", controllers.ShowBook)
 			books.GET("/", controllers.ShowBooks)
